@@ -163,9 +163,7 @@ Identifies RCE, command injection, LFI/RFI, XSS patterns.
 - [Demo Script](docs/demo_script.md) - Live demonstration guide
 - [Presentation](presentation/presentation_outline.md) - Slide deck
 
-## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
@@ -173,28 +171,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📧 Contact
 
-**Author**: [Your Name]  
-**Email**: [your.email@university.edu]  
-**University**: [University Name]  
+**Author**: AN VAN NGUYEN  
+**Email**: annguyen11012k4@gmail.com  
+**University**: Post and Telecommunications Institute of Technology (PTIT) 
 **Project Date**: December 2025
 
-## 🙏 Acknowledgments
 
-- Suricata IDS team for the excellent open-source tool
-- [Advisor Name] for project guidance
-- Computer Science Department for infrastructure support
-
-## 📖 Citation
-
-If you use this work in your research, please cite:
-```bibtex
-@inproceedings{yourname2025enhanced,
-  title={Enhanced Network Intrusion Detection Using Custom Suricata Rules: A Comparative Analysis},
-  author={[Your Name]},
-  booktitle={[Conference/University]},
-  year={2025}
-}
-```
 
 ---
 
