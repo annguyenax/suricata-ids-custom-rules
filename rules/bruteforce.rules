@@ -1,0 +1,69 @@
+# ===================================
+# BRUTE FORCE ATTACK DETECTION RULES
+# Total: 26 rules (SID 1000301-1000326)
+# ===================================
+
+# SSH Brute Force Detection (Multiple thresholds)
+alert tcp any any -> $HOME_NET 22 (msg:"BRUTEFORCE SSH Multiple Failed Login Attempts"; flow:established,to_server; content:"SSH-"; depth:4; threshold: type threshold, track by_src, count 5, seconds 60; classtype:attempted-admin; sid:1000301; rev:1;)
+
+alert tcp any any -> $HOME_NET 22 (msg:"BRUTEFORCE SSH Aggressive Brute Force"; flow:established,to_server; content:"SSH-"; depth:4; threshold: type threshold, track by_src, count 10, seconds 120; classtype:attempted-admin; sid:1000302; rev:1;)
+
+alert tcp any any -> $HOME_NET 22 (msg:"BRUTEFORCE SSH Rapid Connection Attempts"; flags:S; threshold: type threshold, track by_src, count 15, seconds 60; classtype:attempted-admin; sid:1000303; rev:1;)
+
+alert tcp any any -> $HOME_NET 22 (msg:"BRUTEFORCE SSH Dictionary Attack Pattern"; flow:established,to_server; content:"SSH-"; threshold: type threshold, track by_src, count 20, seconds 300; classtype:attempted-admin; sid:1000304; rev:1;)
+
+alert tcp any any -> $HOME_NET 22 (msg:"BRUTEFORCE SSH Distributed Attack"; flow:established,to_server; content:"SSH-"; threshold: type threshold, track by_dst, count 30, seconds 120; classtype:attempted-admin; sid:1000305; rev:1;)
+
+# FTP Brute Force Detection
+alert tcp any any -> $HOME_NET 21 (msg:"BRUTEFORCE FTP Multiple Failed Login"; flow:established,to_server; content:"USER "; depth:5; threshold: type threshold, track by_src, count 5, seconds 60; classtype:attempted-admin; sid:1000311; rev:1;)
+
+alert tcp any any -> $HOME_NET 21 (msg:"BRUTEFORCE FTP Password Guessing"; flow:established,to_server; content:"PASS "; depth:5; threshold: type threshold, track by_src, count 10, seconds 120; classtype:attempted-admin; sid:1000312; rev:1;)
+
+alert tcp any any -> $HOME_NET 21 (msg:"BRUTEFORCE FTP Rapid Connection Attempts"; flags:S; threshold: type threshold, track by_src, count 15, seconds 60; classtype:attempted-admin; sid:1000313; rev:1;)
+
+# HTTP Authentication Brute Force
+alert tcp any any -> $HOME_NET 80 (msg:"BRUTEFORCE HTTP Basic Auth Multiple Attempts"; flow:established,to_server; content:"Authorization|3a| Basic"; http_header; threshold: type threshold, track by_src, count 10, seconds 60; classtype:web-application-attack; sid:1000316; rev:1;)
+
+alert tcp any any -> $HOME_NET 443 (msg:"BRUTEFORCE HTTPS Basic Auth Brute Force"; flow:established,to_server; content:"Authorization|3a| Basic"; http_header; threshold: type threshold, track by_src, count 10, seconds 60; classtype:web-application-attack; sid:1000317; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"BRUTEFORCE HTTP 401 Unauthorized Repeated"; flow:established,to_client; content:"401"; http_stat_code; threshold: type threshold, track by_src, count 15, seconds 120; classtype:web-application-attack; sid:1000318; rev:1;)
+
+# Web Form Login Brute Force
+alert tcp any any -> $HOME_NET 80 (msg:"BRUTEFORCE Web Login Form Multiple POST"; flow:established,to_server; content:"POST"; http_method; content:"login"; http_uri; nocase; threshold: type threshold, track by_src, count 10, seconds 60; classtype:web-application-attack; sid:1000321; rev:1;)
+
+alert tcp any any -> $HOME_NET 80 (msg:"BRUTEFORCE Web Login Password Parameter"; flow:established,to_server; content:"POST"; http_method; content:"password="; http_client_body; nocase; threshold: type threshold, track by_src, count 15, seconds 120; classtype:web-application-attack; sid:1000322; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"BRUTEFORCE Web Admin Panel Attack"; flow:established,to_server; content:"POST"; http_method; pcre:"/\/(admin|login|wp-login)/i"; threshold: type threshold, track by_src, count 10, seconds 60; classtype:web-application-attack; sid:1000323; rev:1;)
+
+# MySQL Brute Force
+alert tcp any any -> $HOME_NET 3306 (msg:"BRUTEFORCE MySQL Multiple Connection Attempts"; flags:S; threshold: type threshold, track by_src, count 10, seconds 60; classtype:attempted-admin; sid:1000331; rev:1;)
+
+alert tcp any any -> $HOME_NET 3306 (msg:"BRUTEFORCE MySQL Authentication Failures"; flow:established; threshold: type threshold, track by_src, count 15, seconds 120; classtype:attempted-admin; sid:1000332; rev:1;)
+
+# PostgreSQL Brute Force
+alert tcp any any -> $HOME_NET 5432 (msg:"BRUTEFORCE PostgreSQL Multiple Connections"; flags:S; threshold: type threshold, track by_src, count 10, seconds 60; classtype:attempted-admin; sid:1000333; rev:1;)
+
+# RDP Brute Force
+alert tcp any any -> $HOME_NET 3389 (msg:"BRUTEFORCE RDP Multiple Connection Attempts"; flags:S; threshold: type threshold, track by_src, count 5, seconds 60; classtype:attempted-admin; sid:1000326; rev:1;)
+
+# SMTP Brute Force
+alert tcp any any -> $HOME_NET 25 (msg:"BRUTEFORCE SMTP AUTH Multiple Attempts"; flow:established,to_server; content:"AUTH"; nocase; threshold: type threshold, track by_src, count 10, seconds 60; classtype:attempted-admin; sid:1000341; rev:1;)
+
+alert tcp any any -> $HOME_NET 587 (msg:"BRUTEFORCE SMTP Submission Port Attack"; flow:established,to_server; content:"AUTH"; nocase; threshold: type threshold, track by_src, count 10, seconds 60; classtype:attempted-admin; sid:1000342; rev:1;)
+
+# POP3 Brute Force
+alert tcp any any -> $HOME_NET 110 (msg:"BRUTEFORCE POP3 Multiple Login Attempts"; flow:established,to_server; content:"USER "; depth:5; threshold: type threshold, track by_src, count 10, seconds 60; classtype:attempted-admin; sid:1000343; rev:1;)
+
+# IMAP Brute Force
+alert tcp any any -> $HOME_NET 143 (msg:"BRUTEFORCE IMAP Multiple Login Attempts"; flow:established,to_server; content:"LOGIN"; nocase; threshold: type threshold, track by_src, count 10, seconds 60; classtype:attempted-admin; sid:1000344; rev:1;)
+
+# VNC Brute Force
+alert tcp any any -> $HOME_NET 5900 (msg:"BRUTEFORCE VNC Multiple Connection Attempts"; flags:S; threshold: type threshold, track by_src, count 10, seconds 60; classtype:attempted-admin; sid:1000351; rev:1;)
+
+# Telnet Brute Force
+alert tcp any any -> $HOME_NET 23 (msg:"BRUTEFORCE Telnet Multiple Login Attempts"; flow:established; threshold: type threshold, track by_src, count 10, seconds 60; classtype:attempted-admin; sid:1000352; rev:1;)
+
+# WordPress Brute Force
+alert tcp any any -> $HOME_NET 80 (msg:"BRUTEFORCE WordPress wp-login.php Attack"; flow:established,to_server; content:"POST"; http_method; content:"wp-login.php"; http_uri; threshold: type threshold, track by_src, count 10, seconds 60; classtype:web-application-attack; sid:1000361; rev:1;)
+
+alert tcp any any -> $HOME_NET 80 (msg:"BRUTEFORCE WordPress XML-RPC Brute Force"; flow:established,to_server; content:"POST"; http_method; content:"xmlrpc.php"; http_uri; threshold: type threshold, track by_src, count 20, seconds 60; classtype:web-application-attack; sid:1000362; rev:1;)

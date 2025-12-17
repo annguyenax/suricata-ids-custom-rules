@@ -1,0 +1,33 @@
+========================================
+SCENARIO 1: BASELINE (DEFAULT RULES)
+========================================
+Date: December 17, 2025
+Configuration: Default Suricata rules only (~30,000)
+Custom Rules: DISABLED
+
+Network Setup:
+  IDS: 192.168.100.10 (br0 bridge)
+  Target: 192.168.100.30
+  Attacker: 192.168.100.20 (Kali)
+
+Attack Profile:
+  - Port Scans: 500 ports (nmap -p 1-500)
+  - SQL Injections: 100 attempts
+  - SSH Brute Force: 50 attempts
+  - Total Attacks: ~650
+
+Detection Results:
+  Total Alerts: 54
+  Detection Rate: 8.3%
+  
+Analysis:
+  ✓ Some default rules triggered
+  ❌ Limited port scan detection
+  ❌ Minimal SQL injection detection
+  ❌ Basic brute force detection
+  
+Conclusion: Default rules provide BASIC protection
+but miss many attack patterns.
+
+STATUS: COMPLETED ✅
+========================================

@@ -1,0 +1,68 @@
+# ===================================
+# SQL INJECTION DETECTION RULES
+# Total: 28 rules (SID 1000101-1000128)
+# ===================================
+
+# UNION-based SQL Injection
+alert tcp any any -> $HOME_NET any (msg:"SQLI UNION SELECT Statement Detected"; flow:established,to_server; content:"union"; nocase; content:"select"; nocase; distance:0; classtype:web-application-attack; sid:1000101; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI UNION ALL SELECT Detected"; flow:established,to_server; content:"union"; nocase; content:"all"; nocase; content:"select"; nocase; classtype:web-application-attack; sid:1000102; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI UNION with NULL values"; flow:established,to_server; content:"union"; nocase; content:"null"; nocase; classtype:web-application-attack; sid:1000103; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI Multiple UNION attempts"; flow:established,to_server; content:"union"; nocase; pcre:"/union.{1,100}union/i"; classtype:web-application-attack; sid:1000104; rev:1;)
+
+# Boolean-based Blind SQL Injection
+alert tcp any any -> $HOME_NET any (msg:"SQLI Boolean OR 1=1 Detected"; flow:established,to_server; content:"or"; nocase; content:"1=1"; nocase; distance:0; classtype:web-application-attack; sid:1000111; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI Boolean OR 1=1 with comment"; flow:established,to_server; pcre:"/or\s+1\s*=\s*1\s*(--|#|\/\*)/i"; classtype:web-application-attack; sid:1000112; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI Boolean AND 1=1 Detected"; flow:established,to_server; content:"and"; nocase; content:"1=1"; nocase; distance:0; classtype:web-application-attack; sid:1000113; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI Boolean true condition"; flow:established,to_server; pcre:"/(or|and)\s+['\"]?[a-z]\1?=\1?['\"]?[a-z]\1?/i"; classtype:web-application-attack; sid:1000114; rev:1;)
+
+# Time-based Blind SQL Injection
+alert tcp any any -> $HOME_NET any (msg:"SQLI Time-based SLEEP function"; flow:established,to_server; content:"sleep("; nocase; classtype:web-application-attack; sid:1000121; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI Time-based WAITFOR DELAY"; flow:established,to_server; content:"waitfor"; nocase; content:"delay"; nocase; classtype:web-application-attack; sid:1000122; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI Time-based BENCHMARK function"; flow:established,to_server; content:"benchmark("; nocase; classtype:web-application-attack; sid:1000123; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI Time-based pg_sleep"; flow:established,to_server; content:"pg_sleep("; nocase; classtype:web-application-attack; sid:1000124; rev:1;)
+
+# Error-based SQL Injection
+alert tcp any any -> $HOME_NET any (msg:"SQLI Error-based extractvalue()"; flow:established,to_server; content:"extractvalue("; nocase; classtype:web-application-attack; sid:1000131; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI Error-based updatexml()"; flow:established,to_server; content:"updatexml("; nocase; classtype:web-application-attack; sid:1000132; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI Error-based convert()"; flow:established,to_server; content:"convert("; nocase; content:"using"; nocase; classtype:web-application-attack; sid:1000133; rev:1;)
+
+# SQL Comment Injection
+alert tcp any any -> $HOME_NET any (msg:"SQLI SQL Comment -- Detected"; flow:established,to_server; content:"--"; classtype:web-application-attack; sid:1000141; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI SQL Comment # Detected"; flow:established,to_server; content:"#"; http_uri; classtype:web-application-attack; sid:1000142; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI SQL Multi-line Comment"; flow:established,to_server; content:"/*"; content:"*/"; distance:0; classtype:web-application-attack; sid:1000143; rev:1;)
+
+# Information Schema Access
+alert tcp any any -> $HOME_NET any (msg:"SQLI information_schema Access"; flow:established,to_server; content:"information_schema"; nocase; classtype:web-application-attack; sid:1000151; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI TABLES enumeration"; flow:established,to_server; content:"information_schema"; nocase; content:"tables"; nocase; classtype:web-application-attack; sid:1000152; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI COLUMNS enumeration"; flow:established,to_server; content:"information_schema"; nocase; content:"columns"; nocase; classtype:web-application-attack; sid:1000153; rev:1;)
+
+# Database Fingerprinting
+alert tcp any any -> $HOME_NET any (msg:"SQLI MySQL version() function"; flow:established,to_server; content:"version("; nocase; classtype:web-application-attack; sid:1000161; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI database() function"; flow:established,to_server; content:"database("; nocase; classtype:web-application-attack; sid:1000162; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI user() function"; flow:established,to_server; content:"user("; nocase; classtype:web-application-attack; sid:1000163; rev:1;)
+
+# Dangerous SQL Commands
+alert tcp any any -> $HOME_NET any (msg:"SQLI DROP TABLE Attempt"; flow:established,to_server; content:"drop"; nocase; content:"table"; nocase; distance:0; classtype:web-application-attack; sid:1000171; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI DELETE FROM Attempt"; flow:established,to_server; content:"delete"; nocase; content:"from"; nocase; distance:0; classtype:web-application-attack; sid:1000172; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI UPDATE SET Attempt"; flow:established,to_server; content:"update"; nocase; content:"set"; nocase; classtype:web-application-attack; sid:1000173; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"SQLI INSERT INTO Attempt"; flow:established,to_server; content:"insert"; nocase; content:"into"; nocase; distance:0; classtype:web-application-attack; sid:1000174; rev:1;)

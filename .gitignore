@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# Logs (keep structure, ignore large log files)
+*.log
+results/**/fast.log
+results/**/eve.json
+results/**/stats.log
+
+# Backup files
+*.bak
+*.swp
+*.tmp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Large files
+*.tar.gz
+*.zip
+*.pcap
+
+# Sensitive data
+*.key
+*.pem
+passwords.txt
+secrets/
+
+# Keep directory structure
+!.gitkeep

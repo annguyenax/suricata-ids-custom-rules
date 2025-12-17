@@ -1,0 +1,1 @@
+alert http any any -> $HOME_NET any (msg:"TEST SQLI OR 1=1 in URI"; flow:to_server,established; http.uri; content:"OR%201=1"; nocase; sid:9900001; rev:1;)
