@@ -1,3 +1,10 @@
+# 🛡️ Suricata IDS Custom Rules Project
+
+[![GitHub release](https://img.shields.io/github/v/release/annguyenax/suricata-ids-custom-rules)](https://github.com/annguyenax/suricata-ids-custom-rules/releases/)
+[![GitHub stars](https://img.shields.io/github/stars/annguyenax/suricata-ids-custom-rules)](https://github.com/annguyenax/suricata-ids-custom-rules/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/annguyenax/suricata-ids-custom-rules)](https://github.com/annguyenax/suricata-ids-custom-rules/issues)
+[![License](https://img.shields.io/github/license/annguyenax/suricata-ids-custom-rules)](https://github.com/annguyenax/suricata-ids-custom-rules/blob/main/LICENSE)
+
 # Enhanced Network Intrusion Detection Using Custom Suricata Rules
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
