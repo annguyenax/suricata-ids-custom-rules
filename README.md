@@ -95,6 +95,13 @@ sudo cp rules/*.rules /etc/suricata/rules/custom/
 # 4. Configure Suricata
 sudo nano /etc/suricata/suricata.yaml
 # Add custom rule files to rule-files section
+# 5. load rule
+sudo suricata -T -c /etc/suricata/suricata.yaml
+clear log
+ sudo truncate -s 0 /var/log/suricata/fast.log
+realtime log:
+ sudo tail -f /var/log/suricata/fast.log
+
 ```
 
 ### Usage
