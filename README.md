@@ -102,6 +102,7 @@ clear log
 realtime log:
  sudo tail -f /var/log/suricata/fast.log
 ~/ids_collect_metrics.sh
+sudo suricata -T -c /etc/suricata/suricata.yaml
 ```
 
 ### Usage
