@@ -101,7 +101,7 @@ clear log
  sudo truncate -s 0 /var/log/suricata/fast.log
 realtime log:
  sudo tail -f /var/log/suricata/fast.log
-
+~/ids_collect_metrics.sh
 ```
 
 ### Usage
