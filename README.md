@@ -167,7 +167,6 @@ Identifies RCE, command injection, LFI/RFI, XSS patterns.
 ## 📚 Documentation
 
 - [IEEE Paper](docs/ieee_paper_latex.tex) - Full research paper
-- [Analysis Report](analysis/ANALYSIS_REPORT.md) - Detailed analysis
 - [Demo Script](docs/demo_script.md) - Live demonstration guide
 
 
@@ -188,6 +187,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**⭐ If you find this project helpful, please give it a star!**
 
 Last Updated: December 17, 2025
