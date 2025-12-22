@@ -169,7 +169,7 @@ Identifies RCE, command injection, LFI/RFI, XSS patterns.
 - [IEEE Paper](docs/ieee_paper_latex.tex) - Full research paper
 - [Analysis Report](analysis/ANALYSIS_REPORT.md) - Detailed analysis
 - [Demo Script](docs/demo_script.md) - Live demonstration guide
-- [Presentation](presentation/presentation_outline.md) - Slide deck
+
 
 
 
