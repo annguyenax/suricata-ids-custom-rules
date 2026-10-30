@@ -18,7 +18,11 @@ Attack Profile (IDENTICAL TO SCENARIO 1):
 
 Detection Results:
   Total Alerts: 486
-  Detection Rate: 74.8%
+  Alert-to-attempt ratio: 74.8% (486 alerts / 650 attack attempts)
+  NOTE (2026-10, after external review): "Detection Rate" was removed as the
+  label for this number. An alert is not the same as a confirmed detection
+  (e.g. SQLi alone already produced 101 alerts for 100 attempts), and only
+  16/88 custom rules fired at all in this run (see "Rules Triggered" below).
   
 Breakdown by Category:
   PORTSCAN: 340 alerts (68% improvement)
