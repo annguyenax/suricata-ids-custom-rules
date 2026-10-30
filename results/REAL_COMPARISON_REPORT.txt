@@ -40,10 +40,16 @@ False Positives: 32
 ========================================
 CONCLUSION
 ========================================
+NOTE (2026-10, after external review): the two lines below were removed
+because the data in this file does not support them: "Minimal false
+positives" (32 FP on a small benign-traffic run is not minimal relative to
+the test size) and "Ready for production deployment" (a 3-VM, single-run
+lab is not production validation). What this file does show:
 ✓ Network topology validated (br0 works!)
-✓ Custom rules significantly improve detection
-✓ Minimal false positives
-✓ Ready for production deployment
+✓ Alert count rose from 54 to 486 (+800%) when the 88 custom rules were
+  added. This is an increase in alert VOLUME, not a measured increase in
+  precision/recall — only 16 of the 88 custom rules fired at all in
+  scenario 2, and benign traffic (scenario 3) still produced 32 alerts.
 
-STATUS: ALL 3 SCENARIOS COMPLETED ✅
+STATUS: ALL 3 SCENARIOS COMPLETED ✅ (lab result, not a production claim)
 ========================================
